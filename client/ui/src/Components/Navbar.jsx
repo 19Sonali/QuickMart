@@ -28,9 +28,9 @@ export default function Navbar() {
           <li>
             <Link to="/productlisting" className="hover:text-blue-200 text-white dark:hover:text-blue-400">Product Listing</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to="/product-detail" className="hover:text-blue-200 text-white dark:hover:text-blue-400">Product Detail</Link>
-          </li>
+          </li> */}
         </ul>
         <div className="flex items-center space-x-4">
           <Link to="/cart" className="hover:text-blue-200 text-white dark:hover:text-blue-400">

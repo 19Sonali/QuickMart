@@ -8,9 +8,9 @@ namespace QuickMartServer.Models
         public int ProductID { get; set; }
 
         [Required(ErrorMessage = "Product name is required")]
-        public string Name { get; set; } = string.Empty; // 🔹 Fixes CS8618 warning
+        public string Name { get; set; } = string.Empty;
 
-        public string Description { get; set; } = string.Empty; // 🔹 Prevents null exceptions
+        public string Description { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Price is required")]
         [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than zero")]
@@ -19,5 +19,8 @@ namespace QuickMartServer.Models
         [Required(ErrorMessage = "Stock is required")]
         [Range(0, int.MaxValue, ErrorMessage = "Stock cannot be negative")]
         public int Stock { get; set; }
+
+        [Url(ErrorMessage = "Invalid URL format")]
+        public string ImageUrl { get; set; } = string.Empty; // 🔹 New field for image URLs
     }
 }

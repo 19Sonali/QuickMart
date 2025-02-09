@@ -84,7 +84,7 @@ const Home = () => {
                 className="bg-white dark:bg-gray-700 dark:border dark:border-gray-600 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow"
               >
                 <img
-                  src={`https://via.placeholder.com/200`}
+                  src={product.imageUrl}
                   alt={product.name}
                   className="w-full rounded-lg mb-4"
                 />
@@ -95,7 +95,7 @@ const Home = () => {
                   {product.description}
                 </p>
                 <p className="text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">
-                  <strong>Price:</strong> ${product.price}
+                  <strong>Price:</strong> Rs. {product.price}
                 </p>
               </div>
             ))}
