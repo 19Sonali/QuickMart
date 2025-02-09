@@ -1,7 +1,9 @@
-using Microsoft.AspNetCore.Mvc; // Required for [HttpGet], [HttpPost]
-using Microsoft.EntityFrameworkCore; // Required for DbContext
-using QuickMartServer.Data;  // Your DbContext
-using QuickMartServer.Models;  // Your Cart model
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using QuickMartServer.Data;
+using QuickMartServer.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -17,14 +19,27 @@ public class CartController : ControllerBase
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
     {
-        return await _context.Carts.ToListAsync();
+        return await _context.Carts
+            .Include(c => c.Product) // 🔹 Include Product details
+            .ToListAsync();
     }
 
     [HttpPost]
-    public async Task<ActionResult<Cart>> AddToCart(Cart cart)
+    public async Task<ActionResult<Cart>> AddToCart([FromBody] Cart cart) // 🔹 Ensure JSON is correctly mapped
     {
+        if (cart == null)
+        {
+            return BadRequest("Invalid cart data.");
+        }
+
         _context.Carts.Add(cart);
         await _context.SaveChangesAsync();
-        return CreatedAtAction(nameof(GetCarts), new { id = cart.Id }, cart);
+
+        // 🔹 Fetch the inserted cart with Product details
+        var newCart = await _context.Carts
+            .Include(c => c.Product)
+            .FirstOrDefaultAsync(c => c.Id == cart.Id);
+
+        return CreatedAtAction(nameof(GetCarts), new { id = cart.Id }, newCart);
     }
 }

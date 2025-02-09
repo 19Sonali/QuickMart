@@ -9,6 +9,8 @@ const ProductListing = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6; // Number of products per page
 
   useEffect(() => {
     if (darkMode) {
@@ -40,6 +42,16 @@ const ProductListing = () => {
 
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
 
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="w-full overflow-x-hidden mt-20 min-h-screen bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-200">
       {/* Dark Mode Toggle */}
@@ -60,28 +72,47 @@ const ProductListing = () => {
         ) : error ? (
           <p className="text-center text-red-500">{error}</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {products.map((product) => (
-              <Link key={product.productID} to={`/product/${product.productID}`}>
-                <div className="bg-white dark:bg-gray-700 dark:border dark:border-gray-600 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-full rounded-lg mb-4"
-                  />
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm text-gray-700 dark:text-gray-300">
-                    {product.description}
-                  </p>
-                  <p className="text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">
-                    <strong>Price:</strong> Rs. {product.price}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {currentProducts.map((product) => (
+                <Link key={product.productID} to={`/product/${product.productID}`}>
+                  <div className="bg-white dark:bg-gray-700 dark:border dark:border-gray-600 p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow">
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-full h-48 object-cover rounded-lg mb-4"
+                    />
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-gray-700 dark:text-gray-300">
+                      {product.description}
+                    </p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-gray-200 mt-4">
+                      <strong>Price:</strong> Rs. {product.price}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-8">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`px-4 py-2 mx-1 rounded-lg shadow ${
+                    currentPage === index + 1
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-300 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  } hover:bg-blue-500 hover:text-white transition`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </>
         )}
       </section>
 
