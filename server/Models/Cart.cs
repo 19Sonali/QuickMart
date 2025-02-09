@@ -1,20 +1,21 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using QuickMartServer.Models; // 🔹 Ensure this is included
 
-namespace QuickMartServer.Models // 🔹 Make sure it's inside the correct namespace
+namespace QuickMartServer.Models
 {
     public class Cart
     {
         [Key]
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
+        [Required]
+        public int ProductId { get; set; } // 🔹 Ensure it's required
 
-        public int Quantity { get; set; }
+        [Required]
+        [Range(1, int.MaxValue, ErrorMessage = "Quantity must be at least 1.")]
+        public int Quantity { get; set; } // 🔹 Add validation
 
-        // 🔹 Fix CS0246: Ensure that Product is recognized
         [ForeignKey("ProductId")]
-        public Product? Product { get; set; } // Allows navigation to Product
+        public Product? Product { get; set; } // 🔹 Nullable for EF navigation
     }
 }

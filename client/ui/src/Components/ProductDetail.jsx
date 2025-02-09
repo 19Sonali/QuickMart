@@ -10,43 +10,64 @@ const ProductDetail = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
+    console.log("🔄 Fetching product:", productID);
+
     fetch(`http://localhost:5161/api/Product/${productID}`)
       .then((response) => {
         if (!response.ok) throw new Error("Product not found.");
         return response.json();
       })
       .then((data) => {
+        console.log("✅ Product Loaded:", data);
         setProduct(data);
         setLoading(false);
       })
       .catch((error) => {
+        console.error("❌ Error loading product:", error);
         setError(error.message);
         setLoading(false);
       });
   }, [productID]);
 
-  const handleAddToCart = () => {
-    if (!product?.id) {
+  const handleAddToCart = async () => {
+    console.log("🛒 Add to Cart button clicked!");
+
+    if (!product) {
+      console.error("❌ Product is null!");
+      setError("Product details are missing.");
+      return;
+    }
+
+    if (!product.productID) { // Fix: Using correct key
+      console.error("❌ Product ID is missing!", product);
       setError("Invalid product details.");
       return;
     }
 
-    fetch("http://localhost:5161/api/Cart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productId: product.id, quantity }),
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error("Failed to add product to cart.");
-        return response.json();
-      })
-      .then(() => {
-        setSuccessMessage("Product added to cart successfully!");
-        setTimeout(() => setSuccessMessage(""), 3000);
-      })
-      .catch((error) => {
-        setError(error.message);
+    const cartData = { productId: product.productID, quantity };
+    console.log("📤 Sending cart data:", cartData);
+
+    try {
+      const response = await fetch("http://localhost:5161/api/Cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cartData),
       });
+
+      console.log("📥 Response status:", response.status);
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        throw new Error(errorMessage || "Failed to add product to cart.");
+      }
+
+      const data = await response.json();
+      console.log("✅ Cart updated:", data);
+      setSuccessMessage("Product added to cart successfully!");
+      setTimeout(() => setSuccessMessage(""), 3000);
+    } catch (error) {
+      console.error("❌ Error:", error);
+      setError(error.message);
+    }
   };
 
   if (loading) return <p>Loading product details...</p>;

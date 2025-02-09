@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+
 export default function AutoCarousel() {
   const settings = {
     dots: true,
@@ -22,7 +23,7 @@ export default function AutoCarousel() {
           {/* Slide 1 */}
           <div>
             <img
-              src="./Images/slide1.png"
+              src="../assets/Images/slide1.png"
               alt="Slide 1"
               className="w-full h-auto object-cover rounded-lg"
             />
