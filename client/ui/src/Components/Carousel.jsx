@@ -3,7 +3,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-
 export default function AutoCarousel() {
   const settings = {
     dots: true,
@@ -17,37 +16,35 @@ export default function AutoCarousel() {
   };
 
   return (
-    <div className="w-full overflow-hidden">
-      <div className="w-full max-w-4xl mx-auto mt-10 px-4">
-        <Slider {...settings}>
-          {/* Slide 1 */}
-          <div>
-            <img
-              src="../assets/Images/slide1.png"
-              alt="Slide 1"
-              className="w-full h-auto object-cover rounded-lg"
-            />
-          </div>
+    <div className="w-screen h-screen overflow-hidden">
+      <Slider {...settings} className="w-full h-full">
+        {/* Slide 1 */}
+        <div className="w-screen h-screen">
+          <img
+            src="./Images/slide1.png"
+            alt="Slide 1"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-          {/* Slide 2 */}
-          <div>
-            <img
-              src="https://via.placeholder.com/800x400?text=Slide+2"
-              alt="Slide 2"
-              className="w-full h-auto object-cover rounded-lg"
-            />
-          </div>
+        {/* Slide 2 */}
+        <div className="w-screen h-screen">
+          <img
+            src="https://via.placeholder.com/1920x1080?text=Slide+2"
+            alt="Slide 2"
+            className="w-full h-full object-cover"
+          />
+        </div>
 
-          {/* Slide 3 */}
-          <div>
-            <img
-              src="https://via.placeholder.com/800x400?text=Slide+3"
-              alt="Slide 3"
-              className="w-full h-auto object-cover rounded-lg"
-            />
-          </div>
-        </Slider>
-      </div>
+        {/* Slide 3 */}
+        <div className="w-screen h-screen">
+          <img
+            src="https://via.placeholder.com/1920x1080?text=Slide+3"
+            alt="Slide 3"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </Slider>
     </div>
   );
 }
