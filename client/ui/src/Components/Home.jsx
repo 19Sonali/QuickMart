@@ -103,7 +103,7 @@ const Home = () => {
         )}
         <div className="text-center mt-8">
           <Link
-            to="/products"
+            to="/productlisting"
             className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition"
           >
             View All Products

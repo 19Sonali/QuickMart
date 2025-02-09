@@ -26,7 +26,7 @@ export default function Navbar() {
             <Link to="/" className="hover:text-blue-200 text-white dark:hover:text-blue-400">Home</Link>
           </li>
           <li>
-            <Link to="/product-listing" className="hover:text-blue-200 text-white dark:hover:text-blue-400">Product Listing</Link>
+            <Link to="/productlisting" className="hover:text-blue-200 text-white dark:hover:text-blue-400">Product Listing</Link>
           </li>
           <li>
             <Link to="/product-detail" className="hover:text-blue-200 text-white dark:hover:text-blue-400">Product Detail</Link>
