@@ -16,28 +16,47 @@ public class ProductController : ControllerBase
         _context = context;
     }
 
+    // ✅ Get all products
     // GET: api/Product
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
         try
         {
-            // Retrieve all products from the database
             var products = await _context.Products.ToListAsync();
 
-            // Check if products exist
             if (products == null || products.Count == 0)
             {
                 return NotFound(new { message = "No products found" });
             }
 
-            // Return the products with a 200 OK status
             return Ok(products);
         }
         catch (Exception ex)
         {
-            // Handle unexpected errors
             return StatusCode(500, new { message = "An error occurred while fetching products", error = ex.Message });
+        }
+    }
+
+    // ✅ Get a single product by ID
+    // GET: api/Product/{id}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Product>> GetProductById(int id)
+    {
+        try
+        {
+            var product = await _context.Products.FindAsync(id);
+
+            if (product == null)
+            {
+                return NotFound(new { message = $"Product with ID {id} not found" });
+            }
+
+            return Ok(product);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "An error occurred while fetching the product", error = ex.Message });
         }
     }
 }

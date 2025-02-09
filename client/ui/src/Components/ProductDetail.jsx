@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ProductDetail = () => {
-  const { productID } = useParams(); // Get productID from URL
+  const { productID } = useParams(); // Extract the product ID from the URL
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    setLoading(true); // Reset loading state when productID changes
-    fetch(`http://localhost:5161/api/Product/${productID}`) // Fetch product details by ID
+    // Fetch the specific product details
+    fetch(`http://localhost:5161/api/Product/${productID}`)
       .then((response) => {
         if (!response.ok) {
-          throw new Error("Failed to fetch product details.");
+          throw new Error("Product not found.");
         }
         return response.json();
       })
@@ -24,57 +24,18 @@ const ProductDetail = () => {
         setError(error.message);
         setLoading(false);
       });
-  }, [productID]); // Add productID as a dependency
+  }, [productID]);
 
-  if (loading) {
-    return <p>Loading product details...</p>;
-  }
-
-  if (error) {
-    return <p>Error: {error}</p>;
-  }
-
-  if (!product) {
-    return <p>No product found.</p>;
-  }
-
-  const handleAddToCart = () => {
-    alert(`${product.name} added to cart!`);
-    // You can implement cart functionality here
-  };
+  if (loading) return <p>Loading product details...</p>;
+  if (error) return <p>Error: {error}</p>;
+  if (!product) return <p>No product found.</p>;
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <img
-        src={product.image || "https://via.placeholder.com/300"}
-        alt={product.name}
-        style={{
-          width: "300px",
-          height: "300px",
-          objectFit: "cover",
-          borderRadius: "8px",
-          marginBottom: "20px",
-        }}
-      />
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">{product.name}</h1>
       <p>{product.description}</p>
-      <p>
-        <strong>Price:</strong> ${product.price}
-      </p>
-      <p>
-        <strong>Stock:</strong> {product.stock}
-      </p>
-      <button
-        onClick={handleAddToCart}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#007bff",
-          color: "#fff",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
+      <p className="text-lg font-semibold">Price: ${product.price}</p>
+      <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
         Add to Cart
       </button>
     </div>
