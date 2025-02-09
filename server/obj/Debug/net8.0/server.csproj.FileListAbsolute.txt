@@ -170,3 +170,4 @@ C:\QuickMart\server\obj\Debug\net8.0\refint\server.dll
 C:\QuickMart\server\obj\Debug\net8.0\server.pdb
 C:\QuickMart\server\obj\Debug\net8.0\server.genruntimeconfig.cache
 C:\QuickMart\server\obj\Debug\net8.0\ref\server.dll
+C:\QuickMart\server\obj\Debug\net8.0\server.sourcelink.json

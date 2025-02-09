@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations; // Required for [Key] and validation attributes
 using System.ComponentModel.DataAnnotations.Schema; // Required for Entity Framework Core
 
-namespace QuickMart.Models
+namespace QuickMartServer.Models
 {
     public class Customer
     {
