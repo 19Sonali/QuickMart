@@ -11,7 +11,7 @@ export default function AutoCarousel() {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 10000, // 10 seconds
+    autoplaySpeed: 1000, // 10 seconds
     arrows: false,
   };
 
@@ -30,20 +30,20 @@ export default function AutoCarousel() {
         {/* Slide 2 */}
         <div className="w-screen h-screen">
           <img
-            src="https://via.placeholder.com/1920x1080?text=Slide+2"
+            src="./Images/slide2.jpg"
             alt="Slide 2"
             className="w-full h-full object-cover"
           />
         </div>
 
         {/* Slide 3 */}
-        <div className="w-screen h-screen">
+        {/* <div className="w-screen h-screen">
           <img
             src="https://via.placeholder.com/1920x1080?text=Slide+3"
             alt="Slide 3"
             className="w-full h-full object-cover"
           />
-        </div>
+        </div> */}
       </Slider>
     </div>
   );
