@@ -31,7 +31,7 @@ const Home = () => {
         return response.json();
       })
       .then((data) => {
-        setProducts(data.slice(0, 6)); // Display only 6 featured products
+        setProducts(data.slice(0, 6)); 
         setLoading(false);
       })
       .catch((error) => {
@@ -44,7 +44,7 @@ const Home = () => {
 
   return (
     <div className="w-full overflow-x-hidden mt-20 min-h-screen bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-gray-200">
-      {/* Dark Mode Toggle */}
+      
       <div className="absolute top-4 right-4">
         <button
           onClick={toggleDarkMode}
@@ -54,7 +54,7 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Hero Section with AutoCarousel */}
+      {/* Hero Section */}
       <section className="w-full overflow-x-hidden">
         <AutoCarousel />
       </section>

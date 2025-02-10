@@ -18,12 +18,12 @@ const ProductDetail = () => {
         return response.json();
       })
       .then((data) => {
-        console.log("✅ Product Loaded:", data);
+        console.log("Product Loaded:", data);
         setProduct(data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error("❌ Error loading product:", error);
+        console.error("Error loading product:", error);
         setError(error.message);
         setLoading(false);
       });
@@ -33,19 +33,19 @@ const ProductDetail = () => {
     console.log("🛒 Add to Cart button clicked!");
 
     if (!product) {
-      console.error("❌ Product is null!");
+      console.error("Product is null!");
       setError("Product details are missing.");
       return;
     }
 
-    if (!product.productID) { // Fix: Using correct key
-      console.error("❌ Product ID is missing!", product);
+    if (!product.productID) { 
+      console.error("Product ID is missing!", product);
       setError("Invalid product details.");
       return;
     }
 
     const cartData = { productId: product.productID, quantity };
-    console.log("📤 Sending cart data:", cartData);
+    console.log("Sending cart data:", cartData);
 
     try {
       const response = await fetch("http://localhost:5161/api/Cart", {
@@ -54,18 +54,18 @@ const ProductDetail = () => {
         body: JSON.stringify(cartData),
       });
 
-      console.log("📥 Response status:", response.status);
+      console.log("Response status:", response.status);
       if (!response.ok) {
         const errorMessage = await response.text();
         throw new Error(errorMessage || "Failed to add product to cart.");
       }
 
       const data = await response.json();
-      console.log("✅ Cart updated:", data);
+      console.log("Cart updated:", data);
       setSuccessMessage("Product added to cart successfully!");
       setTimeout(() => setSuccessMessage(""), 3000);
     } catch (error) {
-      console.error("❌ Error:", error);
+      console.error("Error:", error);
       setError(error.message);
     }
   };

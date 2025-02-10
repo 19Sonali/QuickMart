@@ -4,8 +4,8 @@ import Navbar from "./Components/Navbar";
 import Home from "./Components/Home";
 import ProductListing from "./Components/ProductListing";
 import ProductDetail from "./Components/ProductDetail";
-import CartPage from "./Components/CartPage"; // Updated: Importing CartPage
-import CheckoutPage from "./Components/CheckoutPage"; // Updated: Importing CheckoutPage
+import CartPage from "./Components/CartPage"; 
+import CheckoutPage from "./Components/CheckoutPage"; 
 
 export default function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -24,11 +24,11 @@ export default function App() {
         />
         <Route
           path="/cart"
-          element={<CartPage cartItems={cartItems} setCartItems={setCartItems} />} // Updated: CartPage component
+          element={<CartPage cartItems={cartItems} setCartItems={setCartItems} />} 
         />
         <Route
           path="/checkout"
-          element={<CheckoutPage cartItems={cartItems} setCartItems={setCartItems} />} // Updated: CheckoutPage component
+          element={<CheckoutPage cartItems={cartItems} setCartItems={setCartItems} />} 
         />
       </Routes>
     </Router>
