@@ -1,5 +1,5 @@
 
-# QuicMart - Ecommerce website 
+# QuickMart - Ecommerce website 
 
 QuickMart is a modern e-commerce platform built with C# .NET 8 Web API and React.js (with Vite). It provides a seamless shopping experience with features like product browsing, cart management, and order checkout.
 
